@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Till Deraneck | Versicherung. Visualisierung. Marketing.</title>
+  <meta name="description" content="Till Deraneck vereint drei Expertisen: §34d Versicherungsmakler, Sky Estate Drohnenvisualisierung und Werbewal KI-Marketing. Alles beginnt mit der richtigen Perspektive." />
+  <meta name="keywords" content="Till Deraneck, Versicherungsmakler, Sky Estate, Drohnen, Immobilien, Werbewal, KI-Marketing, Kiel" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Till Deraneck | Drei Visionen. Ein Antrieb." />
+  <meta property="og:description" content="Versicherung. Visualisierung. Marketing. Alles beginnt mit der richtigen Perspektive." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://deraneck.eu" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-brand">
+        <span class="brand-first">Till</span>
+        <span class="brand-last">Deraneck</span>
+      </a>
+
+      <div class="nav-menu" id="navMenu">
+        <a href="#ueber-mich" class="nav-link">Über mich</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#kontakt" class="nav-link">Kontakt</a>
+        <a href="#kontakt" class="nav-cta-btn">
+          Gespräch anfragen
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen">
+        <span class="toggle-bar"></span>
+        <span class="toggle-bar"></span>
+        <span class="toggle-bar"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <div class="hero-bg-gradient"></div>
+    <canvas class="hero-canvas" id="heroCanvas"></canvas>
+
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow reveal-up">
+          <span class="eyebrow-dot"></span>
+          KIEL &middot; DACH-RAUM
+        </div>
+
+        <h1 class="hero-headline reveal-up delay-1">
+          Drei Visionen.<br />
+          <span class="headline-gradient">Ein Antrieb.</span>
+        </h1>
+
+        <p class="hero-sub reveal-up delay-2">
+          Versicherung. Visualisierung. Marketing.<br />
+          Alles beginnt mit der richtigen Perspektive.
+        </p>
+
+        <div class="hero-actions reveal-up delay-3">
+          <a href="#services" class="btn-hero-primary">
+            Services entdecken
+            <i class="fas fa-arrow-down"></i>
+          </a>
+          <a href="#kontakt" class="btn-hero-ghost">
+            <i class="fas fa-envelope"></i>
+            Kontakt aufnehmen
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator reveal-up delay-4">
+      <div class="scroll-line">
+        <div class="scroll-dot"></div>
+      </div>
+      <span>SCROLL</span>
+    </div>
+  </section>
+
+  <!-- ===== ÜBER MICH ===== -->
+  <section class="section about" id="ueber-mich">
+    <div class="container about-grid">
+      <div class="about-text">
+        <div class="section-eyebrow reveal-up">ÜBER MICH</div>
+        <h2 class="section-headline reveal-up delay-1">
+          Neugier trifft <span class="text-gradient">Erfahrung.</span>
+        </h2>
+        <p class="about-description reveal-up delay-2">
+          Ich bin Till, 34, aus Kiel. Was mich antreibt: Dinge bauen, die Menschen
+          weiterbringen. Als Versicherungsmakler schütze ich Familien. Mit Sky Estate
+          bringe ich Immobilien in die Luft. Und mit Werbewal gebe ich Unternehmen
+          ein KI-Marketing-Team an die Hand.
+        </p>
+        <p class="about-description reveal-up delay-3">
+          Drei Standbeine, eine Philosophie: Qualität, Transparenz und der Blick
+          fürs Wesentliche.
+        </p>
+        <div class="about-tags reveal-up delay-3">
+          <span class="tag">§34d Versicherungsmakler</span>
+          <span class="tag">Drohnenpilot</span>
+          <span class="tag">KI-Enthusiast</span>
+          <span class="tag">B.A. Marketing Management</span>
+        </div>
+      </div>
+      <div class="about-visual reveal-right delay-2">
+        <div class="about-img-wrapper" data-parallax="0.15">
+          <img
+            src="images/hero.jpg"
+            alt="Till Deraneck"
+            class="about-img"
+            loading="lazy"
+          />
+          <div class="about-img-glow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="section services" id="services">
+    <div class="container">
+      <div class="section-eyebrow text-center reveal-up">SERVICES</div>
+      <h2 class="section-headline text-center reveal-up delay-1">
+        Drei Welten. <span class="text-gradient">Eine Adresse.</span>
+      </h2>
+      <p class="section-sub text-center reveal-up delay-2">
+        Jede Marke steht für sich. Zusammen ergeben sie ein einzigartiges Ökosystem.
+      </p>
+
+      <div class="services-grid">
+        <!-- Card 1: Versicherung -->
+        <a href="https://deraneckaerial.github.io/till-deraneck-website/" target="_blank" rel="noopener" class="service-card reveal-up delay-1" data-accent="versicherung" data-tilt>
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <div class="card-icon">
+              <i class="fas fa-shield-halved"></i>
+            </div>
+            <h3 class="card-title">Absicherung mit Weitblick</h3>
+            <p class="card-text">
+              §34d geprüft. Unabhängig. Für Familien, die vorausdenken.
+              Persönliche Beratung ohne versteckte Kosten.
+            </p>
+            <div class="card-cta">
+              <span>Mehr erfahren</span>
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+          <div class="card-glare"></div>
+        </a>
+
+        <!-- Card 2: Sky Estate -->
+        <a href="https://theskyestates.netlify.app/" target="_blank" rel="noopener" class="service-card reveal-up delay-2" data-accent="skyestate" data-tilt>
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <div class="card-icon">
+              <svg class="drone-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 28a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2"/>
+                <path d="M14 18l-6-6M34 18l6-6M14 30l-6 6M34 30l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="8" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                <circle cx="40" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                <circle cx="8" cy="36" r="4" stroke="currentColor" stroke-width="2"/>
+                <circle cx="40" cy="36" r="4" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Von oben überzeugen</h3>
+            <p class="card-text">
+              Drohnenaufnahmen, 3D-Modelle und Exposés für Immobilienprofis.
+              4K Qualität, 48h Lieferzeit.
+            </p>
+            <div class="card-cta">
+              <span>Mehr erfahren</span>
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+          <div class="card-glare"></div>
+        </a>
+
+        <!-- Card 3: Werbewal -->
+        <a href="https://werbewal.netlify.app/" target="_blank" rel="noopener" class="service-card reveal-up delay-3" data-accent="werbewal" data-tilt>
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <div class="card-icon">
+              <i class="fas fa-wand-magic-sparkles"></i>
+            </div>
+            <h3 class="card-title">Marketing ohne Kompromisse</h3>
+            <p class="card-text">
+              Dein KI-Marketing-Team. Strategie, Texte, Design und Analyse,
+              professionell und rund um die Uhr.
+            </p>
+            <div class="card-cta">
+              <span>Mehr erfahren</span>
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+          <div class="card-glare"></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== KONTAKT ===== -->
+  <section class="section contact" id="kontakt">
+    <div class="container contact-grid">
+      <div class="contact-text">
+        <div class="section-eyebrow reveal-up">KONTAKT</div>
+        <h2 class="section-headline reveal-up delay-1">
+          Lass uns <span class="text-gradient">sprechen.</span>
+        </h2>
+        <p class="contact-description reveal-up delay-2">
+          Egal ob Versicherungsfrage, Drohnenprojekt oder Marketing-Strategie:
+          Schreib mir und ich melde mich innerhalb von 24 Stunden.
+        </p>
+        <div class="contact-info reveal-up delay-3">
+          <div class="contact-info-item">
+            <i class="fas fa-envelope"></i>
+            <span>info@deraneck.eu</span>
+          </div>
+          <div class="contact-info-item">
+            <i class="fas fa-location-dot"></i>
+            <span>Kiel, Deutschland</span>
+          </div>
+          <div class="contact-info-item">
+            <a href="https://www.linkedin.com/in/till-deraneck/" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin"></i>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal-up delay-2" id="contactForm" action="https://formspree.io/f/PLACEHOLDER" method="POST">
+        <input type="hidden" name="_subject" id="formSubject" value="[Allgemein] Neue Anfrage über deraneck.eu" />
+        <input type="hidden" name="_replyto" id="formReplyTo" />
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Dein Name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" name="email" placeholder="deine@email.de" required />
+        </div>
+
+        <div class="form-group">
+          <label for="service">Welcher Service interessiert dich?</label>
+          <select id="service" name="service" required>
+            <option value="" disabled selected>Bitte wählen</option>
+            <option value="Versicherung">Versicherung & Vorsorge</option>
+            <option value="SkyEstate">Sky Estate (Drohne & 3D)</option>
+            <option value="Werbewal">Werbewal (KI-Marketing)</option>
+            <option value="Allgemein">Allgemeine Anfrage</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Nachricht</label>
+          <textarea id="message" name="message" rows="4" placeholder="Wie kann ich dir helfen?" required></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <span class="btn-text">Nachricht senden</span>
+          <span class="btn-loading"><i class="fas fa-spinner fa-spin"></i></span>
+          <i class="fas fa-paper-plane"></i>
+        </button>
+
+        <div class="form-success" id="formSuccess">
+          <i class="fas fa-circle-check"></i>
+          <span>Danke! Ich melde mich innerhalb von 24 Stunden.</span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-first">Till</span>
+        <span class="brand-last">Deraneck</span>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://deraneckaerial.github.io/till-deraneck-website/" target="_blank" rel="noopener">Versicherung</a>
+        <a href="https://theskyestates.netlify.app/" target="_blank" rel="noopener">Sky Estate</a>
+        <a href="https://werbewal.netlify.app/" target="_blank" rel="noopener">Werbewal</a>
+        <a href="https://www.linkedin.com/in/till-deraneck/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+
+      <div class="footer-legal">
+        <button onclick="openModal('impressumModal')">Impressum</button>
+        <button onclick="openModal('datenschutzModal')">Datenschutz</button>
+      </div>
+
+      <p class="footer-copy">&copy; 2026 Till Deraneck. Alle Rechte vorbehalten.</p>
+    </div>
+  </footer>
+
+  <!-- ===== MODALS ===== -->
+  <div class="modal-overlay" id="impressumModal" onclick="closeModalOnBg(event, 'impressumModal')">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('impressumModal')">
+        <i class="fas fa-times"></i>
+      </button>
+      <h2>Impressum</h2>
+      <p><strong>Till Deraneck</strong><br />
+        Königsweg 40<br />
+        24103 Kiel<br />
+        Deutschland</p>
+      <p><strong>Kontakt:</strong><br />
+        E-Mail: info@deraneck.eu</p>
+      <p><strong>Berufsbezeichnung:</strong><br />
+        Versicherungsmakler mit Erlaubnis nach §34d Abs. 1 GewO<br />
+        Zuständige Aufsichtsbehörde: IHK zu Kiel</p>
+      <p><strong>Registrierung:</strong><br />
+        Registriert im Vermittlerregister<br />
+        Registrierungsstelle: DIHK, Berlin</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="datenschutzModal" onclick="closeModalOnBg(event, 'datenschutzModal')">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('datenschutzModal')">
+        <i class="fas fa-times"></i>
+      </button>
+      <h2>Datenschutzerklärung</h2>
+      <h3>1. Verantwortlicher</h3>
+      <p>Till Deraneck, Königsweg 40, 24103 Kiel, info@deraneck.eu</p>
+      <h3>2. Erhebung und Verarbeitung personenbezogener Daten</h3>
+      <p>Beim Besuch dieser Website werden automatisch Informationen allgemeiner Natur erfasst (Server-Logfiles). Diese Informationen beinhalten die Art des Webbrowsers, das verwendete Betriebssystem, den Domainnamen Ihres Internet-Service-Providers und ähnliche Daten.</p>
+      <h3>3. Kontaktformular</h3>
+      <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage gespeichert. Die Datenverarbeitung erfolgt über den Dienst Formspree (Formspree Inc., USA). Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO.</p>
+      <h3>4. Ihre Rechte</h3>
+      <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten. Kontaktieren Sie uns hierzu unter info@deraneck.eu.</p>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
