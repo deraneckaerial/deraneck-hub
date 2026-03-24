@@ -1,12 +1,24 @@
 /* ============================================================
    DERANECK.EU – Hub Landing Page JavaScript
-   Canvas · Tilt · Parallax · Scroll · Form
+   Canvas · Tilt · Parallax · Scroll · Form · Futuristic FX
    ============================================================ */
 
 'use strict';
 
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+
+
+/* ══════════════════════════════════════════════════════════════
+   0. PAGE LOADER
+══════════════════════════════════════════════════════════════ */
+(function initPageLoader() {
+  const loader = $('#pageLoader');
+  if (!loader) return;
+  window.addEventListener('load', () => {
+    setTimeout(() => loader.classList.add('loaded'), 300);
+  });
+})();
 
 
 /* ══════════════════════════════════════════════════════════════
@@ -80,7 +92,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 (function initHeroEntrance() {
   const heroEls = $$('.hero .reveal-up, .hero .reveal-right');
   if (!heroEls.length) return;
-  setTimeout(() => heroEls.forEach(el => el.classList.add('visible')), 150);
+  setTimeout(() => heroEls.forEach(el => el.classList.add('visible')), 600);
 })();
 
 
@@ -110,7 +122,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
 
 /* ══════════════════════════════════════════════════════════════
-   5. PARTICLE CANVAS – three-color network
+   5. PARTICLE CANVAS – three-color network (enhanced)
 ══════════════════════════════════════════════════════════════ */
 (function initParticles() {
   const canvas = $('#heroCanvas');
@@ -119,12 +131,13 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   const ctx = canvas.getContext('2d');
   let W, H, particles = [];
   let mouseX = -1000, mouseY = -1000;
+  let time = 0;
 
-  const PARTICLE_COUNT = 70;
+  const PARTICLE_COUNT = 80;
   const COLORS = [
-    { r: 200, g: 164, b: 74  },  // Gold
-    { r: 0,   g: 212, b: 229 },  // Cyan
-    { r: 0,   g: 229, b: 160 },  // Mint
+    { r: 200, g: 164, b: 74  },
+    { r: 0,   g: 212, b: 229 },
+    { r: 0,   g: 229, b: 160 },
   ];
 
   function resize() {
@@ -132,42 +145,66 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
     H = canvas.height = canvas.offsetHeight;
   }
 
-  function createParticle() {
+  function createParticle(edge) {
     const c = COLORS[Math.floor(Math.random() * COLORS.length)];
+    let x, y;
+    if (edge) {
+      const side = Math.floor(Math.random() * 4);
+      if (side === 0) { x = Math.random() * W; y = -10; }
+      else if (side === 1) { x = W + 10; y = Math.random() * H; }
+      else if (side === 2) { x = Math.random() * W; y = H + 10; }
+      else { x = -10; y = Math.random() * H; }
+    } else {
+      x = Math.random() * W;
+      y = Math.random() * H;
+    }
     return {
-      x:     Math.random() * W,
-      y:     Math.random() * H,
-      r:     Math.random() * 2 + 0.4,
-      dx:    (Math.random() - 0.5) * 0.3,
-      dy:    (Math.random() - 0.5) * 0.3,
+      x, y,
+      r:     Math.random() * 2.2 + 0.4,
+      dx:    (Math.random() - 0.5) * 0.35,
+      dy:    (Math.random() - 0.5) * 0.35,
       alpha: Math.random() * 0.5 + 0.15,
+      baseAlpha: Math.random() * 0.5 + 0.15,
       color: c,
+      phase: Math.random() * Math.PI * 2,
     };
   }
 
   function init() {
     resize();
-    particles = Array.from({ length: PARTICLE_COUNT }, createParticle);
+    particles = Array.from({ length: PARTICLE_COUNT }, () => createParticle(false));
   }
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
+    time += 0.01;
 
     particles.forEach(p => {
-      /* Mouse repulsion */
+      /* Mouse repulsion + glow */
       const mdx = p.x - mouseX;
       const mdy = p.y - mouseY;
       const mDist = Math.hypot(mdx, mdy);
-      if (mDist < 150) {
-        const force = (150 - mDist) / 150 * 0.8;
+      if (mDist < 160) {
+        const force = (160 - mDist) / 160 * 0.9;
         p.x += (mdx / mDist) * force;
         p.y += (mdy / mDist) * force;
+        /* Brighten near mouse */
+        p.alpha = Math.min(p.baseAlpha + (1 - mDist / 160) * 0.5, 1);
+      } else {
+        /* Subtle pulse */
+        p.alpha = p.baseAlpha + Math.sin(time * 2 + p.phase) * 0.05;
       }
 
-      /* Draw dot */
+      /* Draw dot with glow */
+      const { r, g, b } = p.color;
+      if (mDist < 100) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${r},${g},${b},${p.alpha * 0.15})`;
+        ctx.fill();
+      }
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      const { r, g, b } = p.color;
       ctx.fillStyle = `rgba(${r},${g},${b},${p.alpha})`;
       ctx.fill();
 
@@ -182,20 +219,20 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
       if (p.y > H + 10) p.y = -10;
     });
 
-    /* Connecting lines */
+    /* Connecting lines with pulse */
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
-        const a = particles[i], b = particles[j];
-        const dist = Math.hypot(a.x - b.x, a.y - b.y);
-        if (dist < 120) {
-          const alpha = (1 - dist / 120) * 0.12;
-          /* Blend colors */
-          const cr = Math.round((a.color.r + b.color.r) / 2);
-          const cg = Math.round((a.color.g + b.color.g) / 2);
-          const cb = Math.round((a.color.b + b.color.b) / 2);
+        const a = particles[i], bP = particles[j];
+        const dist = Math.hypot(a.x - bP.x, a.y - bP.y);
+        if (dist < 130) {
+          const pulse = 0.5 + Math.sin(time * 3 + i * 0.1) * 0.5;
+          const alpha = (1 - dist / 130) * 0.12 * (0.7 + pulse * 0.3);
+          const cr = Math.round((a.color.r + bP.color.r) / 2);
+          const cg = Math.round((a.color.g + bP.color.g) / 2);
+          const cb = Math.round((a.color.b + bP.color.b) / 2);
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
+          ctx.lineTo(bP.x, bP.y);
           ctx.strokeStyle = `rgba(${cr},${cg},${cb},${alpha})`;
           ctx.lineWidth = 0.6;
           ctx.stroke();
@@ -206,7 +243,6 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
     requestAnimationFrame(draw);
   }
 
-  /* Track mouse for particle interaction */
   canvas.addEventListener('mousemove', e => {
     const rect = canvas.getBoundingClientRect();
     mouseX = e.clientX - rect.left;
@@ -229,7 +265,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
 
 /* ══════════════════════════════════════════════════════════════
-   6. 3D TILT EFFECT – service cards
+   6. 3D TILT EFFECT + RIPPLE – service cards
 ══════════════════════════════════════════════════════════════ */
 (function initTilt() {
   const cards = $$('[data-tilt]');
@@ -252,7 +288,6 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
       card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
 
-      /* Move glare with cursor */
       if (glare) {
         const gx = (x / rect.width) * 100;
         const gy = (y / rect.height) * 100;
@@ -267,8 +302,23 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
       setTimeout(() => { card.style.transition = ''; }, 500);
     });
 
-    card.addEventListener('mouseenter', () => {
+    card.addEventListener('mouseenter', e => {
       card.style.transition = 'none';
+      /* Ripple effect */
+      const rect = card.getBoundingClientRect();
+      const ripple = document.createElement('div');
+      ripple.className = 'card-ripple';
+      const size = Math.max(rect.width, rect.height) * 2.5;
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+      card.appendChild(ripple);
+      requestAnimationFrame(() => {
+        ripple.style.transition = 'transform .8s ease-out, opacity .8s ease-out';
+        ripple.style.transform = 'scale(1)';
+        ripple.style.opacity = '0';
+      });
+      setTimeout(() => ripple.remove(), 800);
     });
   });
 })();
@@ -352,7 +402,6 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   const nameEl    = $('#name');
   if (!form) return;
 
-  /* Update subject based on dropdown */
   if (service && subjectEl) {
     service.addEventListener('change', () => {
       const name = nameEl ? nameEl.value : '';
@@ -360,7 +409,6 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
     });
   }
 
-  /* Sync reply-to */
   if (emailEl && replyEl) {
     emailEl.addEventListener('input', () => { replyEl.value = emailEl.value; });
   }
@@ -368,7 +416,6 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   form.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    /* Validate */
     const required = $$('[required]', form);
     let valid = true;
     required.forEach(field => {
@@ -386,12 +433,10 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
       return;
     }
 
-    /* Update subject with name before submit */
     if (subjectEl && service && nameEl) {
       subjectEl.value = `[${service.value}] Neue Anfrage von ${nameEl.value}`;
     }
 
-    /* Submit via fetch (Formspree) */
     const btn = $('button[type="submit"]', form);
     btn.classList.add('loading');
     btn.disabled = true;
@@ -419,7 +464,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
       }
     })
     .catch(() => {
-      /* Fallback: show success anyway (Formspree PLACEHOLDER not set up yet) */
+      /* Fallback: show success anyway */
       btn.style.display = 'none';
       success.classList.add('show');
       form.reset();
@@ -432,7 +477,6 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
     });
   });
 
-  /* Clear red borders on input */
   $$('[required]', form).forEach(f => {
     f.addEventListener('input', () => { f.style.borderColor = ''; });
   });
@@ -483,4 +527,230 @@ document.addEventListener('keydown', e => {
     .nav-link.active::after { width: 100% !important; }
   `;
   document.head.appendChild(style);
+})();
+
+
+/* ══════════════════════════════════════════════════════════════
+   13. TYPEWRITER EFFECT
+══════════════════════════════════════════════════════════════ */
+(function initTypewriter() {
+  const el = $('#heroTypewriter');
+  if (!el) return;
+
+  const textSpan = el.querySelector('.typewriter-text');
+  const cursor   = el.querySelector('.typewriter-cursor');
+  const lines    = (el.dataset.lines || '').split('|');
+  if (!textSpan || !lines.length) return;
+
+  let lineIdx = 0, charIdx = 0;
+  let currentText = '';
+
+  function typeLine() {
+    if (lineIdx >= lines.length) {
+      setTimeout(() => cursor.classList.add('done'), 500);
+      return;
+    }
+
+    const line = lines[lineIdx];
+
+    if (charIdx <= line.length) {
+      currentText = lines.slice(0, lineIdx).join('\n') +
+        (lineIdx > 0 ? '\n' : '') + line.slice(0, charIdx);
+      textSpan.innerHTML = currentText.replace(/\n/g, '<br>');
+      charIdx++;
+      setTimeout(typeLine, 40 + Math.random() * 30);
+    } else {
+      lineIdx++;
+      charIdx = 0;
+      setTimeout(typeLine, 400);
+    }
+  }
+
+  /* Start after hero entrance animation */
+  setTimeout(typeLine, 1200);
+})();
+
+
+/* ══════════════════════════════════════════════════════════════
+   14. CURSOR GLOW
+══════════════════════════════════════════════════════════════ */
+(function initCursorGlow() {
+  const glow = $('#cursorGlow');
+  if (!glow || window.matchMedia('(hover: none)').matches) return;
+
+  let targetX = 0, targetY = 0;
+  let currentX = 0, currentY = 0;
+  let active = false;
+
+  document.addEventListener('mousemove', e => {
+    targetX = e.clientX;
+    targetY = e.clientY;
+    if (!active) {
+      active = true;
+      glow.classList.add('active');
+    }
+  });
+
+  document.addEventListener('mouseleave', () => {
+    active = false;
+    glow.classList.remove('active');
+  });
+
+  /* Detect which section the cursor is over */
+  function getSectionColor() {
+    const el = document.elementFromPoint(targetX, targetY);
+    if (!el) return '';
+    const card = el.closest('[data-accent]');
+    if (card) {
+      const accent = card.dataset.accent;
+      if (accent === 'versicherung') return 'gold';
+      if (accent === 'skyestate') return 'cyan';
+      if (accent === 'werbewal') return 'mint';
+    }
+    return '';
+  }
+
+  function animate() {
+    currentX += (targetX - currentX) * 0.12;
+    currentY += (targetY - currentY) * 0.12;
+    glow.style.left = currentX + 'px';
+    glow.style.top = currentY + 'px';
+
+    /* Update color based on section */
+    const color = getSectionColor();
+    glow.className = 'cursor-glow' + (active ? ' active' : '') + (color ? ' ' + color : '');
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+
+/* ══════════════════════════════════════════════════════════════
+   15. MAGNETIC BUTTONS
+══════════════════════════════════════════════════════════════ */
+(function initMagneticButtons() {
+  if (window.matchMedia('(hover: none)').matches) return;
+
+  const btns = $$('[data-magnetic]');
+  const MAX_PULL = 6;
+
+  btns.forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const rect = btn.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width / 2) * MAX_PULL;
+      const dy = (e.clientY - cy) / (rect.height / 2) * MAX_PULL;
+      btn.style.transform = `translate(${dx}px, ${dy}px)`;
+      btn.style.transition = 'transform 0.15s ease-out';
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+      btn.style.transition = 'transform 0.4s cubic-bezier(.4,0,.2,1)';
+    });
+  });
+})();
+
+
+/* ══════════════════════════════════════════════════════════════
+   16. COUNTER ANIMATION
+══════════════════════════════════════════════════════════════ */
+(function initCounters() {
+  const counters = $$('[data-target]');
+  if (!counters.length) return;
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1500;
+      const start = performance.now();
+
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(target * eased);
+        el.textContent = current + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+      obs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(c => obs.observe(c));
+})();
+
+
+/* ══════════════════════════════════════════════════════════════
+   17. WORD REVEAL – split headlines into animated words
+══════════════════════════════════════════════════════════════ */
+(function initWordReveal() {
+  const headlines = $$('.section-headline');
+  if (!headlines.length) return;
+
+  headlines.forEach(h => {
+    /* Skip if inside hero */
+    if (h.closest('.hero')) return;
+
+    const html = h.innerHTML;
+    /* Split text nodes into words while preserving HTML tags */
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html;
+
+    let wordIndex = 0;
+    function processNode(node) {
+      if (node.nodeType === 3) {
+        const words = node.textContent.split(/(\s+)/);
+        const fragment = document.createDocumentFragment();
+        words.forEach(word => {
+          if (word.trim() === '') {
+            fragment.appendChild(document.createTextNode(word));
+          } else {
+            const span = document.createElement('span');
+            span.className = 'word-reveal';
+            span.textContent = word;
+            span.style.transitionDelay = (wordIndex * 0.08) + 's';
+            wordIndex++;
+            fragment.appendChild(span);
+          }
+        });
+        node.parentNode.replaceChild(fragment, node);
+      } else if (node.nodeType === 1) {
+        /* For <span class="text-gradient"> etc., wrap contents */
+        const children = [...node.childNodes];
+        children.forEach(processNode);
+      }
+    }
+
+    const children = [...wrapper.childNodes];
+    children.forEach(processNode);
+    h.innerHTML = wrapper.innerHTML;
+
+    /* Remove existing reveal-up class since we handle it per-word */
+    h.classList.remove('reveal-up');
+    h.style.opacity = '1';
+    h.style.transform = 'none';
+  });
+
+  /* Observe word-reveal spans */
+  const words = $$('.word-reveal');
+  if (!words.length) return;
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+  words.forEach(w => obs.observe(w));
 })();

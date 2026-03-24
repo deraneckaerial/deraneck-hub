@@ -20,6 +20,22 @@
 </head>
 <body>
 
+  <!-- ===== PAGE LOADER ===== -->
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-gradient"></div>
+  </div>
+
+  <!-- ===== FLOATING ORBS (background atmosphere) ===== -->
+  <div class="floating-orbs" aria-hidden="true">
+    <div class="orb orb-gold"></div>
+    <div class="orb orb-cyan"></div>
+    <div class="orb orb-mint"></div>
+    <div class="orb orb-purple"></div>
+  </div>
+
+  <!-- ===== CUSTOM CURSOR ===== -->
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
   <!-- ===== NAVIGATION ===== -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
@@ -32,7 +48,7 @@
         <a href="#ueber-mich" class="nav-link">Über mich</a>
         <a href="#services" class="nav-link">Services</a>
         <a href="#kontakt" class="nav-link">Kontakt</a>
-        <a href="#kontakt" class="nav-cta-btn">
+        <a href="#kontakt" class="nav-cta-btn" data-magnetic>
           Gespräch anfragen
           <i class="fas fa-arrow-right"></i>
         </a>
@@ -49,6 +65,7 @@
   <!-- ===== HERO ===== -->
   <section class="hero" id="home">
     <div class="hero-bg-gradient"></div>
+    <div class="hero-aurora"></div>
     <canvas class="hero-canvas" id="heroCanvas"></canvas>
 
     <div class="hero-inner">
@@ -63,17 +80,16 @@
           <span class="headline-gradient">Ein Antrieb.</span>
         </h1>
 
-        <p class="hero-sub reveal-up delay-2">
-          Versicherung. Visualisierung. Marketing.<br />
-          Alles beginnt mit der richtigen Perspektive.
+        <p class="hero-sub reveal-up delay-2" id="heroTypewriter" data-lines="Versicherung. Visualisierung. Marketing.|Alles beginnt mit der richtigen Perspektive.">
+          <span class="typewriter-text"></span><span class="typewriter-cursor">|</span>
         </p>
 
         <div class="hero-actions reveal-up delay-3">
-          <a href="#services" class="btn-hero-primary">
+          <a href="#services" class="btn-hero-primary" data-magnetic>
             Services entdecken
             <i class="fas fa-arrow-down"></i>
           </a>
-          <a href="#kontakt" class="btn-hero-ghost">
+          <a href="#kontakt" class="btn-hero-ghost" data-magnetic>
             <i class="fas fa-envelope"></i>
             Kontakt aufnehmen
           </a>
@@ -125,6 +141,26 @@
           />
           <div class="about-img-glow"></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STATS BAR ===== -->
+  <section class="stats-bar">
+    <div class="container stats-grid">
+      <div class="stat-item reveal-up">
+        <span class="stat-number" data-target="3">0</span>
+        <span class="stat-label">Marken</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item reveal-up delay-1">
+        <span class="stat-number" data-target="1">0</span>
+        <span class="stat-label">Vision</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item reveal-up delay-2">
+        <span class="stat-number" data-target="24" data-suffix="h">0</span>
+        <span class="stat-label">Antwortzeit</span>
       </div>
     </div>
   </section>
