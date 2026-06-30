@@ -723,9 +723,21 @@ document.addEventListener('keydown', e => {
         });
         node.parentNode.replaceChild(fragment, node);
       } else if (node.nodeType === 1) {
-        /* For <span class="text-gradient"> etc., wrap contents */
-        const children = [...node.childNodes];
-        children.forEach(processNode);
+        if (node.classList && node.classList.contains('text-gradient')) {
+          /* Gradient-Span als EINE Reveal-Einheit kapseln. Den Text darin in
+             transformierte .word-reveal-Kinder zu splitten macht den
+             background-clip:text-Gradient auf iOS Safari unsichtbar. */
+          const span = document.createElement('span');
+          span.className = 'word-reveal';
+          span.style.transitionDelay = (wordIndex * 0.08) + 's';
+          wordIndex++;
+          node.parentNode.replaceChild(span, node);
+          span.appendChild(node);
+        } else {
+          /* For other inline elements, wrap their contents per word. */
+          const children = [...node.childNodes];
+          children.forEach(processNode);
+        }
       }
     }
 
